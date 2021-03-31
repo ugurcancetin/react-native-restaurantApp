@@ -6,10 +6,8 @@ import { RestaurantInfo } from "../components/restaurant-info.component";
 import { Spacer } from "../../../components/spacer.component";
 import { SafeArea } from "../../../components/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurants/resturant.context";
+import { Search } from "../components/search.component";
 
-const SearchContainer = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
 
 const ResturantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -19,35 +17,32 @@ const ResturantList = styled(FlatList).attrs({
 
 const LoadingIndicator = styled(ActivityIndicator).attrs({
   animating: true,
-  color: Colors.blue300
+  color: Colors.blue300,
 })`
-  margin-left: -25px;`;
+  margin-left: -25px;
+`;
 
 const LoadingContainer = styled(View)`
   position: absolute;
   top: 50%;
   left: 50%;
-  `;
+`;
 
 export const RestaurantsScreen = () => {
-  const { isLoading, error, restaurants} = useContext(RestaurantsContext);
+  const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
     <SafeArea>
-      <SearchContainer>
-        <Searchbar />
-      </SearchContainer>
-      <LoadingContainer>
-        {isLoading &&  <LoadingIndicator />}
-      </LoadingContainer>
+      <Search />
+      <LoadingContainer>{isLoading && <LoadingIndicator />}</LoadingContainer>
       <ResturantList
         data={restaurants}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <Spacer position="bottom" size="large">
               <RestaurantInfo resturant={item} />
             </Spacer>
           );
-      }}
+        }}
         keyExtractor={(item) => item.name}
         contentContainerStyle={{ padding: 16 }}
       />
