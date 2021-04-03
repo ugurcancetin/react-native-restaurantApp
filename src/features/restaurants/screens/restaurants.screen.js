@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components/native";
-import { Searchbar, ActivityIndicator, Colors } from "react-native-paper";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import { FlatList, View, TouchableOpacity } from "react-native";
 import { RestaurantInfo } from "../components/restaurant-info.component";
 import { Spacer } from "../../../components/spacer.component";
@@ -37,9 +37,9 @@ export const RestaurantsScreen = ({ navigation }) => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail")}>
+            <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail", {restaurant: item})}>
               <Spacer position="bottom" size="large">
-                <RestaurantInfo resturant={item} />
+                <RestaurantInfo restaurant={item} />
               </Spacer>
             </TouchableOpacity>
           );
