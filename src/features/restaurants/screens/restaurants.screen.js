@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import styled from "styled-components/native";
 import { Searchbar, ActivityIndicator, Colors } from "react-native-paper";
-import { FlatList, View } from "react-native";
+import { FlatList, View, TouchableOpacity } from "react-native";
 import { RestaurantInfo } from "../components/restaurant-info.component";
 import { Spacer } from "../../../components/spacer.component";
 import { SafeArea } from "../../../components/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurants/resturant.context";
 import { Search } from "../components/search.component";
-
 
 const ResturantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -28,7 +27,7 @@ const LoadingContainer = styled(View)`
   left: 50%;
 `;
 
-export const RestaurantsScreen = () => {
+export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
     <SafeArea>
@@ -38,9 +37,11 @@ export const RestaurantsScreen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <RestaurantInfo resturant={item} />
-            </Spacer>
+            <TouchableOpacity onPress={() => navigation.navigate("RestaurantDetail")}>
+              <Spacer position="bottom" size="large">
+                <RestaurantInfo resturant={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item) => item.name}
